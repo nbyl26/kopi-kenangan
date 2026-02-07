@@ -154,7 +154,7 @@ function TextOverlay({ progress }: { progress: any }) {
                 <h1 className="text-6xl md:text-9xl font-bold text-white tracking-tighter">
                     KOPI-KENANGAN
                 </h1>
-                <p className="text-xl text-white/80 mt-4 tracking-wide uppercase">Tetangga Tuku</p>
+                <p className="text-xl text-white/80 mt-4 tracking-wide uppercase">Kenangan di Setiap Tegukan</p>
             </motion.div>
 
             {/* Slogan 1 */}
