@@ -13,7 +13,7 @@ export function Footer() {
                     </p>
                     <div className="flex gap-4">
                         <a 
-                            href="https://instagram.com/kopikenangan" 
+                            href="https://www.instagram.com/kopikenangan.id/" 
                             target="_blank"
                             rel="noopener noreferrer"
                             className="p-3 bg-neutral-800 hover:bg-white hover:text-black rounded-full transition-colors"
@@ -21,7 +21,7 @@ export function Footer() {
                             <Instagram className="w-5 h-5" />
                         </a>
                         <a 
-                            href="https://twitter.com/kopikenangan" 
+                            href="https://x.com/Kopikenangan_ID" 
                             target="_blank"
                             rel="noopener noreferrer"
                             className="p-3 bg-neutral-800 hover:bg-white hover:text-black rounded-full transition-colors"
@@ -96,7 +96,23 @@ export function Footer() {
             </div>
             
             <div className="container mx-auto mt-20 border-t border-neutral-800 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-neutral-600 text-sm">
-                <p>© {new Date().getFullYear()} Kopi-Kenangan Coffee. All rights reserved.</p>
+                <div className="flex flex-col md:flex-row items-center gap-2 md:gap-4">
+                    <p>© {new Date().getFullYear()} Kopi-Kenangan Coffee. All rights reserved.</p>
+                    <span className="hidden md:inline">•</span>
+                    <p className="flex items-center gap-1">
+                        Crafted with 
+                        <span className="text-red-500 mx-1">♥</span> 
+                        by 
+                        <a 
+                            href="https://github.com/nbyl" 
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="font-bold hover:text-white transition-colors ml-1"
+                        >
+                            nbyl
+                        </a>
+                    </p>
+                </div>
                 <div className="flex gap-6">
                     <a href="#" className="hover:text-white transition-colors">Privacy Policy</a>
                     <a href="#" className="hover:text-white transition-colors">Terms of Service</a>
