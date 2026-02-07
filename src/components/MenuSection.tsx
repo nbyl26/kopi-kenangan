@@ -23,7 +23,7 @@ const menuItems = [
         name: "Kopi Kenangan Ale-Ale",
         desc: "Cold brew dengan coconut milk",
         price: "28K",
-        img: "https://images.unsplash.com/photo-1562114808-bc0e7e2bdc13?w=800&q=80",
+        img: "https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=800&q=80",
         icon: IceCream
     },
     {
@@ -37,7 +37,7 @@ const menuItems = [
         name: "Croffle Original",
         desc: "Crispy croissant waffle",
         price: "18K",
-        img: "https://images.unsplash.com/photo-1584278070075-9b7e5e909f13?w=800&q=80",
+        img: "https://images.unsplash.com/photo-1586985289688-ca3cf47d3e6e?w=800&q=80",
         icon: Cake
     },
     {
