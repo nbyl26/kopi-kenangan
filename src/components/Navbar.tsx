@@ -12,7 +12,7 @@ export function Navbar() {
     <>
         <nav className="fixed top-0 left-0 w-full z-50 px-6 py-6 flex justify-between items-center mix-blend-difference text-white">
             <Link href="/" className="text-2xl font-bold tracking-tighter uppercase">
-                Tuku
+                Kopi-Kenangan
             </Link>
             
             <button 

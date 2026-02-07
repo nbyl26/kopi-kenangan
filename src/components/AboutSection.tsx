@@ -6,7 +6,7 @@ import clsx from 'clsx'
 
 export function AboutSection() {
   const container = useRef(null)
-  const text = "From a tiny shop in Jakarta to your daily companion. Tuku is not just about coffee; it's about the warmth of the neighborhood."
+  const text = "From a tiny shop in Jakarta to your daily companion. Kopi-Kenangan is not just about coffee; it's about the warmth of the neighborhood."
   
   const { scrollYProgress } = useScroll({
       target: container,

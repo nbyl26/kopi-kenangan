@@ -5,7 +5,7 @@ import { useState, useEffect } from 'react'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
 
 const testimonials = [
-    { text: "The perfect blend of tradition and modern taste. Tuku redefined coffee for me.", author: "Sarah J." },
+    { text: "The perfect blend of tradition and modern taste. Kopi-Kenangan redefined coffee for me.", author: "Sarah J." },
     { text: "My morning ritual isn't complete without their Es Kopi Susu Tetangga.", author: "Budi Santoso" },
     { text: "A hidden gem that became a phenomenon. Absolutely love the vibe.", author: "Jessica T." },
 ]

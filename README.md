@@ -1,6 +1,6 @@
-# Tuku Landing Page
+# Kopi-Kenangan Landing Page
 
-A premium scrollytelling experience for Tuku Coffee.
+A premium scrollytelling experience for Kopi-Kenangan Coffee.
 
 ## Getting Started
 

@@ -152,7 +152,7 @@ function TextOverlay({ progress }: { progress: any }) {
                 className="text-center"
             >
                 <h1 className="text-6xl md:text-9xl font-bold text-white tracking-tighter">
-                    TUKU
+                    KOPI-KENANGAN
                 </h1>
                 <p className="text-xl text-white/80 mt-4 tracking-wide uppercase">Tetangga Tuku</p>
             </motion.div>

@@ -11,7 +11,7 @@ const outfit = Outfit({
 })
 
 export const metadata: Metadata = {
-  title: 'Tuku - Tetangga Tuku',
+  title: 'Kopi-Kenangan - Tetangga Tuku',
   description: 'Premium coffee experience.',
 }
 
