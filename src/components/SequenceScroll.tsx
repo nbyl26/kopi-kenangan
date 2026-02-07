@@ -183,7 +183,13 @@ function TextOverlay({ progress }: { progress: any }) {
                 className="absolute bottom-20 flex flex-col items-center pointer-events-auto"
             >
                 <h2 className="text-5xl font-bold text-white mb-8">Join Us</h2>
-                <button className="bg-white text-black px-8 py-4 rounded-full text-lg font-bold hover:scale-105 transition-transform">
+                <button 
+                    onClick={() => {
+                        const element = document.querySelector('#menu')
+                        if (element) element.scrollIntoView({ behavior: 'smooth' })
+                    }}
+                    className="bg-white text-black px-8 py-4 rounded-full text-lg font-bold hover:scale-105 transition-transform"
+                >
                     Order Now
                 </button>
             </motion.div>

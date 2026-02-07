@@ -5,8 +5,23 @@ import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Menu, X } from 'lucide-react'
 
+const menuItems = [
+    { name: 'Our Story', href: '#about' },
+    { name: 'Products', href: '#menu' },
+    { name: 'Locations', href: '#testimonials' },
+    { name: 'Contact', href: '#footer' },
+]
+
 export function Navbar() {
   const [isOpen, setIsOpen] = useState(false)
+
+  const handleClick = (href: string) => {
+    setIsOpen(false)
+    const element = document.querySelector(href)
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' })
+    }
+  }
 
   return (
     <>
@@ -40,14 +55,14 @@ export function Navbar() {
                     </button>
                     
                     <div className="flex flex-col gap-8 text-center">
-                        {['Our Story', 'Locations', 'Shop', 'Contact'].map((item) => (
-                            <Link 
-                                key={item} 
-                                href="#" 
+                        {menuItems.map((item) => (
+                            <button 
+                                key={item.name}
+                                onClick={() => handleClick(item.href)}
                                 className="text-4xl md:text-6xl font-bold uppercase tracking-tighter hover:text-gray-400 transition-colors"
                             >
-                                {item}
-                            </Link>
+                                {item.name}
+                            </button>
                         ))}
                     </div>
                 </motion.div>

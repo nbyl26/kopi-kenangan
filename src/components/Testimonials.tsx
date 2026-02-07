@@ -24,7 +24,7 @@ export function Testimonials() {
     const prev = () => setIndex((prev) => (prev - 1 + testimonials.length) % testimonials.length)
 
     return (
-        <section className="h-screen w-full relative flex items-center justify-center bg-black text-white overflow-hidden">
+        <section id="testimonials" className="h-screen w-full relative flex items-center justify-center bg-black text-white overflow-hidden">
             <AnimatePresence mode="wait">
                 <motion.div 
                     key={index}

@@ -5,6 +5,7 @@ import { Stats } from '@/components/Stats'
 import { Testimonials } from '@/components/Testimonials'
 import { CTA } from '@/components/CTA'
 import { Footer } from '@/components/Footer'
+import { MenuSection } from '@/components/MenuSection'
 
 export default function Home() {
   return (
@@ -15,6 +16,7 @@ export default function Home() {
       <div className="-mt-[100vh] relative z-10 bg-background shadow-[0_-50px_100px_rgba(0,0,0,0.5)]">
         <AboutSection />
         <BentoGrid />
+        <MenuSection />
         <Stats />
         <Testimonials />
         <CTA />

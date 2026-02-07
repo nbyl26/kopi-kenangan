@@ -1,12 +1,37 @@
 'use client'
 
 import { motion } from 'framer-motion'
+import Image from 'next/image'
 
 const items = [
-    { title: "Roasting", desc: "Small batch daily", col: "col-span-1 md:col-span-2", row: "row-span-2", img: "bg-neutral-800" },
-    { title: "Sourcing", desc: "Local farmers", col: "col-span-1", row: "row-span-1", img: "bg-neutral-700" },
-    { title: "Brewing", desc: "Precision control", col: "col-span-1", row: "row-span-1", img: "bg-neutral-600" },
-    { title: "Community", desc: "Always welcoming", col: "col-span-1 md:col-span-2", row: "row-span-1", img: "bg-neutral-900" },
+    { 
+        title: "Roasting", 
+        desc: "Small batch daily roasting for maximum freshness", 
+        col: "col-span-1 md:col-span-2", 
+        row: "row-span-2", 
+        img: "https://images.unsplash.com/photo-1559056199-641a0ac8b55e?w=800&q=80"
+    },
+    { 
+        title: "Sourcing", 
+        desc: "Direct from Indonesian farmers", 
+        col: "col-span-1", 
+        row: "row-span-1", 
+        img: "https://images.unsplash.com/photo-1447933601403-0c6688de566e?w=800&q=80"
+    },
+    { 
+        title: "Brewing", 
+        desc: "Precision brewing methods", 
+        col: "col-span-1", 
+        row: "row-span-1", 
+        img: "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=800&q=80"
+    },
+    { 
+        title: "Community", 
+        desc: "Building connections through coffee", 
+        col: "col-span-1 md:col-span-2", 
+        row: "row-span-1", 
+        img: "https://images.unsplash.com/photo-1511920170033-f8396924c348?w=800&q=80"
+    },
 ]
 
 export function BentoGrid() {
@@ -21,10 +46,20 @@ export function BentoGrid() {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ delay: i * 0.1 }}
-                    className={`${item.col} ${item.row} ${item.img} rounded-3xl p-8 flex flex-col justify-end text-white hover:scale-[1.02] transition-transform duration-500 cursor-pointer group`}
+                    className={`${item.col} ${item.row} rounded-3xl overflow-hidden relative hover:scale-[1.02] transition-transform duration-500 cursor-pointer group`}
                 >
-                    <h3 className="text-2xl font-bold mb-2 translate-y-4 group-hover:translate-y-0 transition-transform">{item.title}</h3>
-                    <p className="opacity-0 group-hover:opacity-100 transition-opacity">{item.desc}</p>
+                    <Image 
+                        src={item.img}
+                        alt={item.title}
+                        fill
+                        className="object-cover"
+                        sizes="(max-width: 768px) 100vw, 50vw"
+                    />
+                    <div className="absolute inset-0 bg-black/40 group-hover:bg-black/60 transition-colors duration-500" />
+                    <div className="absolute bottom-0 left-0 right-0 p-8 text-white">
+                        <h3 className="text-2xl font-bold mb-2 translate-y-4 group-hover:translate-y-0 transition-transform">{item.title}</h3>
+                        <p className="opacity-0 group-hover:opacity-100 transition-opacity duration-300">{item.desc}</p>
+                    </div>
                 </motion.div>
             ))}
         </div>

@@ -16,7 +16,7 @@ export function AboutSection() {
   const words = text.split(" ")
 
   return (
-    <section ref={container} className="min-h-screen flex items-center justify-center px-6 py-20 bg-background">
+    <section id="about" ref={container} className="min-h-screen flex items-center justify-center px-6 py-20 bg-background">
       <div className="max-w-4xl flex flex-wrap gap-x-3 gap-y-2 justify-center">
         {words.map((word, i) => {
             const start = i / words.length
