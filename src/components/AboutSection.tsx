@@ -1,8 +1,7 @@
 'use client'
 
-import { motion, useScroll, useTransform } from 'framer-motion'
+import { motion, useScroll, useTransform, MotionValue } from 'framer-motion'
 import { useRef } from 'react'
-import clsx from 'clsx'
 
 export function AboutSection() {
   const container = useRef(null)
@@ -28,7 +27,7 @@ export function AboutSection() {
   )
 }
 
-function Word({ children, progress, range }: { children: string, progress: any, range: [number, number] }) {
+function Word({ children, progress, range }: { children: string, progress: MotionValue<number>, range: [number, number] }) {
     const opacity = useTransform(progress, range, [0.1, 1])
     return (
         <motion.span style={{ opacity }} className="text-4xl md:text-6xl font-medium transition-opacity">

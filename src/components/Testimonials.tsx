@@ -23,6 +23,16 @@ export function Testimonials() {
     const next = () => setIndex((prev) => (prev + 1) % testimonials.length)
     const prev = () => setIndex((prev) => (prev - 1 + testimonials.length) % testimonials.length)
 
+    // Keyboard navigation
+    useEffect(() => {
+        const handleKeyDown = (e: KeyboardEvent) => {
+            if (e.key === 'ArrowLeft') prev()
+            if (e.key === 'ArrowRight') next()
+        }
+        window.addEventListener('keydown', handleKeyDown)
+        return () => window.removeEventListener('keydown', handleKeyDown)
+    }, [])
+
     return (
         <section id="testimonials" className="h-screen w-full relative flex items-center justify-center bg-black text-white overflow-hidden">
             <AnimatePresence mode="wait">
@@ -44,11 +54,19 @@ export function Testimonials() {
             </AnimatePresence>
 
             <div className="absolute bottom-10 right-10 flex gap-4">
-                <button onClick={prev} className="p-4 border border-white/20 rounded-full hover:bg-white hover:text-black transition-colors">
-                    <ChevronLeft />
+                <button 
+                    onClick={prev} 
+                    className="p-4 border border-white/20 rounded-full hover:bg-white hover:text-black transition-colors"
+                    aria-label="Previous testimonial"
+                >
+                    <ChevronLeft aria-hidden="true" />
                 </button>
-                <button onClick={next} className="p-4 border border-white/20 rounded-full hover:bg-white hover:text-black transition-colors">
-                    <ChevronRight />
+                <button 
+                    onClick={next} 
+                    className="p-4 border border-white/20 rounded-full hover:bg-white hover:text-black transition-colors"
+                    aria-label="Next testimonial"
+                >
+                    <ChevronRight aria-hidden="true" />
                 </button>
             </div>
         </section>

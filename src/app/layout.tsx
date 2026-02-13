@@ -12,7 +12,20 @@ const outfit = Outfit({
 
 export const metadata: Metadata = {
   title: 'Kopi-Kenangan - Kenangan di Setiap Tegukan',
-  description: 'Premium coffee experience.',
+  description: 'Kopi-Kenangan brings neighbors together through premium coffee. Authentic Indonesian coffee experience with signature drinks and treats from Jakarta.',
+  keywords: 'kopi kenangan, indonesian coffee, jakarta coffee, es kopi susu, premium coffee, specialty coffee, coffee shop',
+  authors: [{ name: 'Kopi-Kenangan' }],
+  openGraph: {
+    title: 'Kopi-Kenangan - Kenangan di Setiap Tegukan',
+    description: 'Premium Indonesian coffee experience in every sip',
+    type: 'website',
+    locale: 'id_ID',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Kopi-Kenangan - Kenangan di Setiap Tegukan',
+    description: 'Premium Indonesian coffee experience in every sip',
+  },
 }
 
 export default function RootLayout({
@@ -21,7 +34,12 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" className={outfit.variable} suppressHydrationWarning>
+    <html lang="id" className={outfit.variable} suppressHydrationWarning>
+      <head>
+        {/* Preconnect to external image sources for better performance */}
+        <link rel="preconnect" href="https://images.unsplash.com" />
+        <link rel="dns-prefetch" href="https://images.unsplash.com" />
+      </head>
       <body className={outfit.className}>
         <SmoothScroll>
             {/* Navbar will be overlay, so inside SmoothScroll or outside? 

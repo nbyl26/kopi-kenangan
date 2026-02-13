@@ -1,9 +1,10 @@
 'use client'
 
-import { useScroll, useTransform, motion, useMotionValueEvent } from 'framer-motion'
-import { useEffect, useRef, useState } from 'react'
+import { useScroll, useTransform, motion, useMotionValueEvent, MotionValue } from 'framer-motion'
+import { useEffect, useRef, useState, useCallback } from 'react'
 
 const FRAME_COUNT = 240
+
 // Helper to generate image paths
 const getImage = (index: number) => `/sequence/ezgif-frame-${(index + 1).toString().padStart(3, '0')}.jpg`
 
@@ -22,14 +23,18 @@ export function SequenceScroll() {
   // Map scroll progress to frame index
   const frameIndex = useTransform(scrollYProgress, [0, 1], [0, FRAME_COUNT - 1])
 
+  // Preload all images
   useEffect(() => {
-    // Preload images
     const loadImages = async () => {
         const loadedImages: HTMLImageElement[] = []
         for (let i = 0; i < FRAME_COUNT; i++) {
             const img = new Image()
             img.src = getImage(i)
             img.onload = () => {
+                setLoadedCount(prev => prev + 1)
+            }
+            img.onerror = () => {
+                console.warn(`Failed to load frame ${i}`)
                 setLoadedCount(prev => prev + 1)
             }
             loadedImages.push(img)
@@ -39,61 +44,47 @@ export function SequenceScroll() {
     loadImages()
   }, [])
 
-  // Draw to canvas
-  const renderFrame = (index: number) => {
+  // Simple canvas rendering
+  const renderFrame = useCallback((index: number) => {
     const canvas = canvasRef.current
     const ctx = canvas?.getContext('2d')
     if (!canvas || !ctx || !images[index]) return 
 
+    const img = images[index]
+    
+    // If image not loaded, skip
+    if (!img || !img.complete || img.naturalWidth === 0) return
+
     // Clear canvas
     ctx.clearRect(0, 0, canvas.width, canvas.height)
     
-    // Draw image cover logic
-    const img = images[index]
-    
-    // Safety check: if image is broken or not loaded, draw placeholder
-    if (!img || !img.complete || img.naturalWidth === 0) {
-        ctx.fillStyle = '#1a1a1a'
-        ctx.fillRect(0, 0, canvas.width, canvas.height)
-        ctx.fillStyle = '#333'
-        ctx.font = '20px sans-serif'
-        ctx.textAlign = 'center'
-        ctx.fillText(`Frame ${index} (Missing Asset)`, canvas.width/2, canvas.height/2)
-        return
-    }
-    
-    // Calculate aspect ratios
+    // Calculate aspect ratios for cover fit
     const canvasRatio = canvas.width / canvas.height
-    const imgRatio = img.width / img.height
+    const imgRatio = img.naturalWidth / img.naturalHeight
     
     let drawWidth, drawHeight, offsetX, offsetY
     
     if (imgRatio > canvasRatio) {
-        // Image is wider than canvas
         drawHeight = canvas.height
-        drawWidth = img.width * (canvas.height / img.height)
+        drawWidth = (img.naturalWidth / img.naturalHeight) * canvas.height
         offsetX = (canvas.width - drawWidth) / 2
         offsetY = 0
     } else {
-        // Image is taller than canvas
         drawWidth = canvas.width
-        drawHeight = img.height * (canvas.width / img.width)
+        drawHeight = (img.naturalHeight / img.naturalWidth) * canvas.width
         offsetX = 0
         offsetY = (canvas.height - drawHeight) / 2
     }
     
-    try {
-        ctx.drawImage(img, offsetX, offsetY, drawWidth, drawHeight)
-    } catch (e) {
-        console.warn('Frame draw failed', e)
-    }
-  }
+    // Draw image
+    ctx.drawImage(img, offsetX, offsetY, drawWidth, drawHeight)
+  }, [images])
 
   // Update on scroll
   useMotionValueEvent(frameIndex, "change", (latest: number) => {
       const index = Math.round(latest)
       // Only draw if images are loaded
-      if (images.length > 0) {
+      if (images.length > 0 && images[index]) {
           requestAnimationFrame(() => renderFrame(index))
       }
   })
@@ -106,14 +97,17 @@ export function SequenceScroll() {
               canvasRef.current.height = window.innerHeight
               // Re-render current frame
               const currentIndex = Math.round(frameIndex.get())
-              renderFrame(currentIndex)
+              if (images[currentIndex]) {
+                  renderFrame(currentIndex)
+              }
           }
       }
+      
       window.addEventListener('resize', handleResize)
-      handleResize()
+      handleResize() // Initial setup
       
       return () => window.removeEventListener('resize', handleResize)
-  }, [images]) // Re-bind when images ready
+  }, [images, renderFrame, frameIndex])
 
   return (
     <div ref={containerRef} className="relative h-[400vh] bg-black">
@@ -123,10 +117,15 @@ export function SequenceScroll() {
             className="w-full h-full object-cover"
         />
         
-        {/* Premium Preloader Overlay */}
-        <div className={`fixed inset-0 z-[100] bg-black text-white flex flex-col items-center justify-center transition-opacity duration-1000 ${loadedCount === FRAME_COUNT ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}>
+        {/* Simple Preloader Overlay */}
+        <div 
+            className={`fixed inset-0 z-[100] bg-black text-white flex flex-col items-center justify-center transition-opacity duration-1000 ${loadedCount === FRAME_COUNT ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}
+            role="status"
+            aria-live="polite"
+            aria-label={`Loading: ${Math.round((loadedCount / FRAME_COUNT) * 100)}%`}
+        >
             <div className="relative">
-                <div className="text-9xl font-bold tracking-tighter mix-blend-difference">
+                <div className="text-9xl font-bold tracking-tighter mix-blend-difference" aria-hidden="true">
                     {Math.round((loadedCount / FRAME_COUNT) * 100)}%
                 </div>
                 <div className="absolute top-0 left-0 w-full h-full bg-white mix-blend-overlay" style={{ height: `${100 - Math.round((loadedCount / FRAME_COUNT) * 100)}%`, transition: 'height 0.1s linear' }} />
@@ -143,7 +142,7 @@ export function SequenceScroll() {
   )
 }
 
-function TextOverlay({ progress }: { progress: any }) {
+function TextOverlay({ progress }: { progress: MotionValue<number> }) {
     return (
         <div className="absolute inset-0 pointer-events-none flex items-center justify-center">
             {/* Title */}

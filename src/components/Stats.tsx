@@ -4,7 +4,13 @@ import CountUp from 'react-countup'
 import { useInView } from 'framer-motion'
 import { useRef } from 'react'
 
-const stats = [
+interface Stat {
+    label: string
+    value: number
+    suffix: string
+}
+
+const stats: Stat[] = [
     { label: "Cups Sold", value: 1000000, suffix: "+" },
     { label: "Locations", value: 50, suffix: "" },
     { label: "Community", value: 25000, suffix: "" },
@@ -22,7 +28,7 @@ export function Stats() {
     )
 }
 
-function StatItem({ value, label, suffix }: any) {
+function StatItem({ value, label, suffix }: Stat) {
     const ref = useRef(null)
     const inView = useInView(ref, { once: true })
     

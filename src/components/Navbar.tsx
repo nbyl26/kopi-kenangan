@@ -33,9 +33,10 @@ export function Navbar() {
             <button 
                 onClick={() => setIsOpen(true)}
                 className="flex items-center gap-2 uppercase text-sm tracking-wide hover:opacity-70 transition-opacity"
+                aria-label="Open navigation menu"
             >
                 <span className="hidden sm:inline">Menu</span>
-                <Menu className="w-6 h-6" />
+                <Menu className="w-6 h-6" aria-hidden="true" />
             </button>
         </nav>
 
@@ -46,12 +47,16 @@ export function Navbar() {
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
                     className="fixed inset-0 z-[60] bg-black text-white flex flex-col items-center justify-center"
+                    role="dialog"
+                    aria-modal="true"
+                    aria-label="Navigation menu"
                 >
                     <button 
                         onClick={() => setIsOpen(false)}
                         className="absolute top-6 right-6 p-2 hover:opacity-70 transition-opacity"
+                        aria-label="Close menu"
                     >
-                        <X className="w-8 h-8" />
+                        <X className="w-8 h-8" aria-hidden="true" />
                     </button>
                     
                     <div className="flex flex-col gap-8 text-center">

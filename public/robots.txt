@@ -1,0 +1,6 @@
+# Kopi-Kenangan Robots.txt
+User-agent: *
+Allow: /
+
+# Sitemaps
+Sitemap: https://kopi-kenangan.com/sitemap.xml
